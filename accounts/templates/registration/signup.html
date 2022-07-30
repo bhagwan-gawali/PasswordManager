@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %} Login Page {% endblock %}
+
+{% block nav-left-side %}
+<li class="nav-item">
+	<a class="nav-link" href="{% url 'login' %}" tabindex="-1" aria-disabled="true">Login</a>
+</li>
+{% endblock %}
+
+{% block content %}
+{% load static %}
+<div class="container mt-5">
+	<div class="row">
+		<div class="col-md-3 col-md-3">
+			
+		</div>
+		<div class="col-md-6 col-lg-6">
+			<div class="card">
+				
+				<div class="card-body">
+					<h4 class="card-title">SignUp</h4>
+					<br>
+					<form method='POST'>
+						{% csrf_token %}
+						<div class="mb-3">
+							<label class="form-label">Username</label>
+							{{ form.username }}
+						</div>
+						<div class="mb-3">
+							<label class="form-label">Email</label>
+							{{ form.email }}
+						</div>
+						<div class="mb-3">
+							<label for="Password" class="form-label">Password</label>
+							{{ form.password1 }}
+						</div>
+						<div class="mb-3">
+							<label for="Password" class="form-label">Password Confirm</label>
+							{{ form.password2 }}
+						</div>
+						<button type="submit" class="btn btn-primary">Create Account</button>
+						<p class="text-muted"><small><small>Already have an Account <a href="{% url 'login' %}">Login</a></small></small></p>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3 col-lg-3">
+			
+		</div>
+	</div>
+</div>
+{% endblock %}
