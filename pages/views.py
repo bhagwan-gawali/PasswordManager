@@ -1,3 +1,4 @@
+import secrets
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
@@ -23,12 +24,15 @@ def dashboard_view(request):
 
 @login_required
 def manage_passwords(request):
+	# random password generator
+	r_pass = secrets.token_urlsafe(14)
+
 	# check the request method and then bond the data to forms
 	if request.method == 'POST':
 		form1 = AddPasswordForm(request.POST)
 		form2 = CcDataForm(request.POST)
 	elif request.method == 'GET':
-		form1 = AddPasswordForm()
+		form1 = AddPasswordForm(initial={'password': r_pass})
 		form2 = CcDataForm()
 	
 	# Query data from database
@@ -61,7 +65,11 @@ def manage_passwords(request):
 		data.save()
 		return redirect(reverse('manage-passwords'))
 
-	data = {'form1': form1, 'form2': form2, 'recent_passwords': recent_passwords, 'recent_cc': recent_cc}
+	data = {
+		'form1': form1, 'form2': form2, 
+		'recent_passwords': recent_passwords, 
+		'recent_cc': recent_cc, 'r_pass': r_pass
+		}
 	
 	return render(request, 'pages/manage_passwords.html', data)
 
