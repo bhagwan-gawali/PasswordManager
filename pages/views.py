@@ -8,7 +8,16 @@ from .models import GeneralPassword, CardData
 
 @login_required
 def dashboard_view(request):
-	data = {}
+	pass_count = GeneralPassword.objects.filter(Q(user=request.user) & Q(delete_pass=False)).count()
+	del_pass_count = GeneralPassword.objects.filter(Q(user=request.user) & Q(delete_pass=True)).count()
+
+	card_count = CardData.objects.filter(Q(user=request.user) & Q(delete_card=False)).count()
+	del_card_count = CardData.objects.filter(Q(user=request.user) & Q(delete_card=True)).count()
+
+	data = {
+		'pass_count': pass_count, 'del_pass_count': del_pass_count,
+		'card_count': card_count, 'del_card_count': del_card_count,
+	}
 
 	return render(request, 'pages/dashboard.html', data)
 

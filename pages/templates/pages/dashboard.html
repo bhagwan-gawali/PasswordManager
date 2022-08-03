@@ -18,13 +18,13 @@
 	<div class="container mt-5 pb-5">
 		<div class="row mb-2 mt-3">
 			<div class="col">
-				<h2> User Dashboard </h2>
+				<h2> Welcome <span class="text-primary">{{ user.first_name|title }} {{ user.last_name|title }}</span></h2>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col">
 				<button type="button" class="btn btn-outline-primary btn-sm disabled"><a href="{% url 'user-profile' %}">My Profile</a></button>
-				<button type="button" class="btn btn-outline-info btn-sm"><a href="{% url 'manage-passwords' %}">Manage Passwords</a></button>
+				<button type="button" class="btn btn-outline-info btn-sm"><a href="{% url 'manage-passwords' %}">Manage Passwords and Cards</a></button>
 			</div>
 		</div>
 	</div>
@@ -39,36 +39,47 @@
 							<div class="card-body">
 								<h5 class="card-title">My Passwords</h5>
 								<p class="card-text">
-									<small>There are <strong>12398</strong> Passwords</small>
+									<small>There are <strong>{{ pass_count }}</strong> Passwords</small>
 									<br/>
-									<small><strong>123</strong> Passwords in Trash</small>
+									<small class="text-danger"><strong>{{ del_pass_count }}</strong> Passwords in Trash</small>
+								</p>
+							</div>
+						</div>
+						<div class="card mt-1">
+							<div class="card-body">
+								<h5 class="card-title">My Cards</h5>
+								<p class="card-text">
+									<small>There are <strong>{{ card_count }}</strong> Cards</small>
+									<br/>
+									<small class="text-danger"><strong>{{ del_card_count }}</strong> Cards in Trash</small>
 								</p>
 							</div>
 						</div>
 					</div>
 					<div class="col">
-						<div class="card">
+						<!-- <div class="card">
 							<div class="card-body">
 								<h5 class="card-title">Special title treatment</h5>
 								<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
 							
 							</div>
-						</div>
+						</div> -->
 					</div>
 					<div class="col">
-						<div class="card">
+						<!-- <div class="card">
 							<div class="card-body">
 								<h5 class="card-title">Special title treatment</h5>
 								<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
 							</div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>
 
 			<div class="col">
 				<h4>Notifications</h4>
-				<div class="list-group">
+				<small class="text-muted">working on it...</small>
+				<!-- <div class="list-group">
 					<a href="#" class="list-group-item list-group-item-action">
 						<div class="d-flex w-100 justify-content-between">
 							<h5 class="mb-1">List group item heading</h5>
@@ -85,7 +96,7 @@
 						<p class="mb-1">Some placeholder content in a paragraph.</p>
 						<small class="text-muted">And some muted small print.</small>
 					</a>
-				</div>
+				</div> -->
 			</div>
 			
 		</div>
