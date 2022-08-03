@@ -1,7 +1,8 @@
 from django.urls import path
 from .views import (
 		dashboard_view, manage_passwords, all_passwords, update_password,
-		delete_password, all_cards, update_card, delete_card
+		delete_password, all_cards, update_card, delete_card, all_trash,
+		restore_pass, restore_card
 	)
 
 urlpatterns = [
@@ -14,5 +15,6 @@ urlpatterns = [
 	path('update-card/', update_card, name='update-card'),
 	path('delete-card/', delete_card, name='delete-card'),
 	path('all-trash/', all_trash, name='all-trash'),
-	
+	path('restore-pass/<int:pass_id>/', restore_pass, name='restore-pass'),
+	path('restore-card/<int:card_id>/', restore_card, name='restore-card'),
 ]

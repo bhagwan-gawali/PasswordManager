@@ -149,4 +149,35 @@ def delete_card(request):
 
 @login_required
 def all_trash(request):
-	pass
+	trash_pass = GeneralPassword.objects.filter(Q(user=request.user) & Q(delete_pass=True)).order_by('id').all()
+	trash_card = CardData.objects.filter(Q(user=request.user) & Q(delete_card=True)).all()
+
+	# deleted password pagination
+	paginator = Paginator(trash_pass, 2)
+	page_number = request.GET.get('pass-page')
+	pass_page_obj = paginator.get_page(page_number)
+
+	# deleted cards pagination
+	paginator = Paginator(trash_card, 2)
+	page_number = request.GET.get('card-page')
+	card_page_obj = paginator.get_page(page_number)
+	
+	data = {
+		'trash_card': trash_card, 'trash_pass': trash_pass, 
+		'pass_page_obj': pass_page_obj, 'card_page_obj': card_page_obj
+		}
+
+	return render(request, 'pages/all_trash.html', data)
+
+@login_required
+def restore_pass(request, pass_id):
+	GeneralPassword.objects.filter(user=request.user).filter(id=pass_id).update(delete_pass=False)
+
+	return redirect(reverse('all-trash'))
+
+@login_required
+def restore_card(request, card_id):
+	CardData.objects.filter(user=request.user).filter(id=card_id).update(delete_card=False)
+
+	return redirect(reverse('all-trash'))
+

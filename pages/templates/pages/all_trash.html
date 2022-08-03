@@ -1,0 +1,157 @@
+{% extends 'pages/base.html' %}
+
+{% block title %} All Trash {% endblock %}
+
+{% block nav-left-side %}
+<li class="nav-item">
+	<a class="nav-link" aria-current="page" href="{% url 'dashboard' %}">Home</a>
+</li>
+<li class="nav-item">
+	<a class="nav-link" aria-current="page" href="{% url 'manage-passwords' %}">Manage Passwords</a>
+</li>
+{% endblock %}
+
+{% block nav-right-side %}
+<li class="nav-item">
+	<a class="nav-link" aria-current="page" href="{% url 'logout' %}">Logout</a>
+</li>
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+	<div class="row">
+		<div class="col">
+			<div class="row">
+				<div class="card">
+					<div class="card-body">
+					  <h5 class="card-title">Deleted Password Data</h5>
+					  <h6 class="card-subtitle mb-2 text-muted">Statistics of Password Data</h6>
+					  <hr/>
+					  <p class="text-info">Number of Passwords : <strong>{{ trash_pass.count }}</strong></p>
+					</div>
+				  </div>
+			</div>
+			<div class="row mt-2">
+				<div class="card">
+					<div class="card-body">
+					  {% if pass_page_obj %}
+					  {% for pass in pass_page_obj %}
+						<div class="card mb-1">
+							<div class="card-body">
+							  <div class="row">
+									<h6>{{ pass.title|title }} <a href="{% url 'restore-pass' pass.id %}" class="float-end btn btn-outline-primary btn-sm">Restore</a></h6>
+									<div class="row">
+										<div class="col">
+											<p>Username : {{ pass.username }} </p>
+											<p>Pass : {{ pass.password }}</p>
+										</div>
+										<div class="col">
+											<p class="text-muted"><small>{{ pass.notes|title }}</small></p>
+										</div>
+									</div>
+							  </div>
+							</div>
+						  </div>
+						  {% endfor %}
+						  {% endif %}
+
+						  <nav aria-label="Page navigation example">
+							<ul class="pagination justify-content-end">
+								{% if pass_page_obj.has_previous %}
+								<li class="page-item">
+									<a class="page-link" href="?pass-page=1" tabindex="-1" aria-disabled="true">First</a>
+								  </li>
+							  <li class="page-item">
+								<a class="page-link" href="?pass-page={{ pass_page_obj.previous_page_number }}" tabindex="-1" aria-disabled="true">Previous</a>
+							  </li>
+							  {% endif %}
+				
+							  <li class="page-item"><a class="page-link" href="#">{{ pass_page_obj.number }} of {{ pass_page_obj.paginator.num_pages }}</a></li>
+				
+							  {% if pass_page_obj.has_next %}
+							  <li class="page-item">
+								<a class="page-link" href="?pass-page={{ pass_page_obj.next_page_number }}">Next</a>
+							  </li>
+							  <li class="page-item">
+								<a class="page-link" href="?pass-page={{ pass_page_obj.paginator.num_pages }}">Last</a>
+							  </li>
+							  {% endif %}
+							</ul>
+						  </nav>
+
+					</div>
+				  </div>
+			</div>
+
+		</div>
+
+		<div class="col ms-1">
+			<div class="row">
+				<div class="card">
+					<div class="card-body">
+					  <h5 class="card-title">Deleted Cards Data</h5>
+					  <h6 class="card-subtitle mb-2 text-muted">Statistics of Password Data</h6>
+					  <hr/>
+					  <p class="text-info">Number of Passwords : <strong>{{ trash_card.count }}</strong></p>
+					</div>
+				  </div>
+			</div>
+			<div class="row mt-2">
+				<div class="card">
+					<div class="card-body">
+					  {% if card_page_obj %}
+					  {% for card in card_page_obj %}
+						<div class="card mb-1">
+							<div class="card-body">
+							  <div class="row">
+									<h6>{{ card.cc_holder_name|title }}<a href="{% url 'restore-card' card.id %}" class="float-end btn btn-outline-primary btn-sm">Restore</a></h6>
+									<div class="row">
+										<div class="col">
+											<p class="text-center"><strong>{{ card.cc_number }}</strong></p>
+											<p class="text-muted"><strong>ccv_code : {{ card.ccv_code }}</strong> <strong class="float-end">{{ card.exp_date|title }}</strong></p>
+										</div>
+										<div class="col">
+											<p class="text-muted"><small>{{ card.cc_notes|title }}</small></p>
+										</div>
+									</div>
+							  </div>
+							</div>
+						  </div>
+						  {% endfor %}
+						  {% endif %}
+
+						  <nav aria-label="Page navigation example">
+							<ul class="pagination justify-content-end">
+								{% if card_page_obj.has_previous %}
+								<li class="page-item">
+									<a class="page-link" href="?card-page=1" tabindex="-1" aria-disabled="true">First</a>
+								  </li>
+							  <li class="page-item">
+								<a class="page-link" href="?card-page={{ card_page_obj.previous_page_number }}" tabindex="-1" aria-disabled="true">Previous</a>
+							  </li>
+							  {% endif %}
+				
+							  <li class="page-item"><a class="page-link" href="#">{{ card_page_obj.number }} of {{ card_page_obj.paginator.num_pages }}</a></li>
+				
+							  {% if card_page_obj.has_next %}
+							  <li class="page-item">
+								<a class="page-link" href="?card-page={{ card_page_obj.next_page_number }}">Next</a>
+							  </li>
+							  <li class="page-item">
+								<a class="page-link" href="?card-page={{ card_page_obj.paginator.num_pages }}">Last</a>
+							  </li>
+							  {% endif %}
+							</ul>
+						  </nav>
+
+					</div>
+				  </div>
+			</div>
+
+		</div>
+	
+	</div>
+</div>
+
+{% endblock %}
