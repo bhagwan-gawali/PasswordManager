@@ -21,8 +21,8 @@
 
 <div class="container mt-4">
 	<div class="row">
-		<div class="col">
-			<div class="row">
+		<div class="col-sm-12 col-md-6 col-lg-6">
+			<div class="row pe-1 pb-1">
 				<div class="card">
 					<div class="card-body">
 					  <h5 class="card-title">Deleted Password Data</h5>
@@ -32,7 +32,7 @@
 					</div>
 				  </div>
 			</div>
-			<div class="row mt-2">
+			<div class="row mt-1 pe-1 pb-1">
 				<div class="card">
 					<div class="card-body">
 					  {% if pass_page_obj %}
@@ -86,12 +86,12 @@
 
 		</div>
 
-		<div class="col ms-1">
+		<div class="col-sm-12 col-md-6 col-lg-6">
 			<div class="row">
 				<div class="card">
 					<div class="card-body">
 					  <h5 class="card-title">Deleted Cards Data</h5>
-					  <h6 class="card-subtitle mb-2 text-muted">Statistics of Password Data</h6>
+					  <h6 class="card-subtitle mb-2 text-muted">Statistics of Cards Data</h6>
 					  <hr/>
 					  <p class="text-info">Number of Passwords : <strong>{{ trash_card.count }}</strong></p>
 					</div>
